@@ -1,3 +1,14 @@
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /calculadora-saque-aniversario-fgts/api
+
 spring:
   application:
     name: calculadora-saque-aniversario-fgts
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}

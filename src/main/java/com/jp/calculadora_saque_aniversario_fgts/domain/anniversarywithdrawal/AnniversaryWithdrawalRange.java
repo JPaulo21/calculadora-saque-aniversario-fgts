@@ -6,14 +6,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(schema = "withdraw", name = "anniversary_withdrawal_range")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class AnniversaryWithdrawalRange {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "initial_range", nullable = false)

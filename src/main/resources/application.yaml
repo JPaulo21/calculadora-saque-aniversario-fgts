@@ -8,7 +8,12 @@ server:
 spring:
   application:
     name: calculadora-saque-aniversario-fgts
+  mvc:
+    locale: pt_BR
+    locale-resolver: fixed # fixed = mesmo do 'spring.mvc.locale', accept-header = Usa o locale enviado pelo cabeçalho HTTP Accept-Language
+  jackson:
+    locale: pt_BR # Define o padrão regional usado para formatações numéricas e de data.
   datasource:
     url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: ${DB_USER}
+    password: ${DB_PASS}

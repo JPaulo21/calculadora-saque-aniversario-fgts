@@ -1,17 +1,48 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()  // ← necessário para plugins do Gradle
+	}
+	dependencies {
+		classpath 'org.flywaydb:flyway-database-postgresql:11.7.2'
+		classpath 'org.postgresql:postgresql:42.7.8'
+	}
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.7'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.flywaydb.flyway' version '11.7.2'
+	id 'jacoco'
 }
 
 group = 'com.jp'
-version = '0.0.1-SNAPSHOT'
+version = '0.1'
 description = 'Demo project for Spring Boot'
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+jacoco {
+	toolVersion = "0.8.14"
+}
+
+// Necessário configurar o Flyway
+flyway {
+	url      = 'jdbc:postgresql://localhost:5432/saque-aniversario-fgts'
+	user     = 'postgres'
+	password = '123'
+	schemas  = ['public', 'withdraw']
+	locations = ['classpath:db/migration']  // - Onde ficam os scripts V001__, V002__...
+	// baselineOnMigrate = true                //- Banco já existe com tabelas → Flyway cria o flyway_schema_history
+											// marca tudo que já existe como "baseline" (versão 1)
+											// a partir daí só aplica migrations novas
+	outOfOrder        = false               // - Não permite rodar migrations fora de ordem
+	validateOnMigrate = true                // - Valida checksum dos scripts ao migrar
 }
 
 configurations {
@@ -31,11 +62,13 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+	implementation 'org.mapstruct:mapstruct:1.6.3'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

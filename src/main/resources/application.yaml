@@ -1,9 +1,15 @@
 server:
   port: ${SERVER_PORT:8080}
+  shutdown: graceful
   error:
     include-stacktrace: never
   servlet:
     context-path: /calculadora-saque-aniversario-fgts/api
+
+logging:
+  level:
+    root: INFO
+    com.calculadora.saqueaniversariofgts: DEBUG
 
 spring:
   application:
@@ -14,10 +20,24 @@ spring:
   jackson:
     locale: pt_BR # Define o padrão regional usado para formatações numéricas e de data.
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/saque-aniversario-fgts}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:123}
   jpa:
+    show-sql: ${JPA_SHOW_SQL:true}
     properties:
       hibernate:
+        format_sql: ${JPA_FORMAT_SQL:true}
         default_schema: withdraw
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    schemas: public, withdraw
+    outOfOrder: false               # Não permite rodar migrations fora de ordem
+    validateOnMigrate: true        # Valida checksum dos scripts ao migrar
+
+# Formata os logs em formato estruturado ECS (Elastic Common Schema) = JSON padronizado pela Elastic.
+#logging:
+#  structured:
+#    format:
+#      console: ecs

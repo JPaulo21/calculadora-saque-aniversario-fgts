@@ -1,7 +1,6 @@
-package com.jp.calculadora_saque_aniversario_fgts.web.controller.docs;
+package com.jp.calculadora_saque_aniversario_fgts.web.docs;
 
-import com.jp.calculadora_saque_aniversario_fgts.web.controller.dto.response.AnniversaryWithdrawalRangeResponseDTO;
-import com.jp.calculadora_saque_aniversario_fgts.web.controller.dto.response.WithdrawResponseDTO;
+import com.jp.calculadora_saque_aniversario_fgts.web.dto.response.AnniversaryWithdrawalRangeResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

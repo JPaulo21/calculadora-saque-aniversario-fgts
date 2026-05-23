@@ -1,23 +1,13 @@
 package com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Service
-@RequiredArgsConstructor
-public class AnniversaryWithdrawalRangeService {
+public interface AnniversaryWithdrawalRangeService {
 
-    private final AnniversaryWithdrawalRangeRepository anniversaryWithdrawalRangeRepository;
+    Page<AnniversaryWithdrawalRange> getRanges(Pageable pageable);
 
-    public Page<AnniversaryWithdrawalRange> getRanges(Pageable pageable) {
-        return anniversaryWithdrawalRangeRepository.findAll(pageable);
-    }
-
-    public AnniversaryWithdrawalRange getRangeByValue(BigDecimal value){
-        return anniversaryWithdrawalRangeRepository.findByRange(value);
-    }
+    AnniversaryWithdrawalRange getRangeByValue(BigDecimal value);
 }

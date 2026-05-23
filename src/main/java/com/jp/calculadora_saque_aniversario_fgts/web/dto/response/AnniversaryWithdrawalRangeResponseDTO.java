@@ -1,4 +1,4 @@
-package com.jp.calculadora_saque_aniversario_fgts.web.controller.dto.response;
+package com.jp.calculadora_saque_aniversario_fgts.web.dto.response;
 
 import com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal.AnniversaryWithdrawalRange;
 

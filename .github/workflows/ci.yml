@@ -33,5 +33,5 @@ jobs:
           gradle-version: '8.14.4'
 
       - name: Execute Gradle build
-        run: ./gradlew build
+        run: gradle build
 

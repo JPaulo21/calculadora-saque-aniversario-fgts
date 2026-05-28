@@ -27,9 +27,46 @@ java {
 	}
 }
 
+
+// JaCoCo
 jacoco {
 	toolVersion = "0.8.14"
 }
+
+jacocoTestReport {
+	dependsOn(test)
+
+	reports {
+		xml.required = true
+	}
+}
+
+jacocoTestCoverageVerification {
+	dependsOn(jacocoTestReport)
+
+	violationRules {
+		rule {
+			element = 'CLASS'
+			includes = ['com.jp.calculadora_saque_aniversario_fgts.domain.*']
+			excludes = ['com.jp.calculadora_saque_aniversario_fgts.domain.*Repository']
+
+			limit {
+				counter = 'LINE'
+				value   = 'COVEREDRATIO'
+				minimum = 0.7
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+// Flyway
 
 // Necessário configurar o Flyway
 flyway {
@@ -39,8 +76,8 @@ flyway {
 	schemas  = ['public', 'withdraw']
 	locations = ['classpath:db/migration']  // - Onde ficam os scripts V001__, V002__...
 	// baselineOnMigrate = true                //- Banco já existe com tabelas → Flyway cria o flyway_schema_history
-											// marca tudo que já existe como "baseline" (versão 1)
-											// a partir daí só aplica migrations novas
+												// marca tudo que já existe como "baseline" (versão 1)
+												// a partir daí só aplica migrations novas
 	outOfOrder        = false               // - Não permite rodar migrations fora de ordem
 	validateOnMigrate = true                // - Valida checksum dos scripts ao migrar
 }
@@ -71,8 +108,4 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }

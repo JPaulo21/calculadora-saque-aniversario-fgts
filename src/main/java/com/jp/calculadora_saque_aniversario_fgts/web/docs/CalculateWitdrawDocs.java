@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
@@ -15,5 +17,7 @@ public interface CalculateWitdrawDocs {
 
     @Operation(summary = "Calcular valor do saque")
     @ApiResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = WithdrawResponseDTO.class)))
-    ResponseEntity<WithdrawResponseDTO> calculateWithdraw(BigDecimal fgtsValue);
+    ResponseEntity<WithdrawResponseDTO> calculateWithdraw(@Positive(message = "O valor do FGTS deve ser maior que 0")
+                                                          @ParameterObject
+                                                          BigDecimal fgtsValue);
 }

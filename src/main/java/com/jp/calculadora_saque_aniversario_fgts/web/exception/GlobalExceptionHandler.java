@@ -2,6 +2,8 @@ package com.jp.calculadora_saque_aniversario_fgts.web.exception;
 
 import com.jp.calculadora_saque_aniversario_fgts.infra.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.net.URI;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -45,4 +48,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ProblemDetail handleException(HttpServletRequest httpRequest, ConstraintViolationException ex){
+        log.error("Constraint(s) exception: {}", ex.getMessage());
+        List<String> errors = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage).toList();
+        ProblemDetail problemDetail = ProblemDetail.forStatus(BAD_REQUEST);
+        problemDetail.setProperty("detail", errors);
+        problemDetail.setInstance(URI.create(httpRequest.getRequestURI()));
+        return problemDetail;
+    }
 }

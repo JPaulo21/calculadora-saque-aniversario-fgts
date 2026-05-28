@@ -3,6 +3,7 @@ package com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal.i
 import com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal.AnniversaryWithdrawalRange;
 import com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal.AnniversaryWithdrawalRangeRepository;
 import com.jp.calculadora_saque_aniversario_fgts.domain.anniversarywithdrawal.AnniversaryWithdrawalRangeService;
+import com.jp.calculadora_saque_aniversario_fgts.infra.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ public class AnniversaryWithdrawalRangeServiceImpl implements AnniversaryWithdra
     }
 
     public AnniversaryWithdrawalRange getRangeByValue(BigDecimal value){
-        return anniversaryWithdrawalRangeRepository.findByRange(value);
+        return anniversaryWithdrawalRangeRepository.findByRange(value)
+                .orElseThrow(() -> new BusinessException("Invalid range: " + value));
     }
 }

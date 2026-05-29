@@ -6,7 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = IGNORE)
 public interface WithdrawInquiryMapper {
 
     WithdrawInquiryMapper INSTANCE = Mappers.getMapper(WithdrawInquiryMapper.class);

@@ -26,7 +26,7 @@ public class WithdrawInquiryServiceImplTest {
     @InjectMocks
     private WithdrawInquiryServiceImpl withdrawInquiryService;
 
-    @BeforeEach
+    @BeforeEach // para cada teste, esse méthodo é executado antes
     void setUp() {
 
     }

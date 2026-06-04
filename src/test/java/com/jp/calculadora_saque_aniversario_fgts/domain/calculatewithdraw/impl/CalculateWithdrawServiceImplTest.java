@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
+import static com.jp.calculadora_saque_aniversario_fgts.domain.withdraw.assertions.WithdrawInquiryAssertions.assertThat_WithdrawInquiry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,6 +37,7 @@ class CalculateWithdrawServiceImplTest {
         ArgumentMatcher<BigDecimal> isPositive = value -> value.compareTo(BigDecimal.ZERO) > 0;
         var rate = BigDecimal.valueOf(20);
         var valorDeConsulta = BigDecimal.valueOf(10000);
+
         AnniversaryWithdrawalRange range = AnniversaryWithdrawalRange.builder()
                 .initialRange(BigDecimal.valueOf(5000.01))
                 .rangeLimit(BigDecimal.valueOf(10000))
@@ -49,10 +51,6 @@ class CalculateWithdrawServiceImplTest {
         WithdrawInquiry sut = calculateWithdrawService.calculateWithdraw(valorDeConsulta);
 
         verify(withdrawInquiryService).register(any(WithdrawInquiry.class));
-
-        assertThat(sut).isNotNull();
-        assertThat(sut.getWithdrawValue()).isEqualTo(BigDecimal.valueOf(2650));
-        assertThat(sut.getFgtsValue()).isEqualTo(BigDecimal.valueOf(10000));
-        assertThat(sut.getFgtsValueAfterWithdraw()).isEqualTo(BigDecimal.valueOf(7350));
+        assertThat_WithdrawInquiry(sut).allFieldsFilled_With();
     }
 }

@@ -24,9 +24,7 @@ public class CalculateWithdrawServiceImpl implements CalculateWithdrawService {
     public WithdrawInquiry calculateWithdraw(BigDecimal fgtsValue){
         AnniversaryWithdrawalRange range = anniversaryWithdrawalRangeService.getRangeByValue(fgtsValue);
         log.info("Value: {} | Range: {}", fgtsValue, range);
-        BigDecimal valuePercentage = fgtsValue
-                .multiply(range.getRate())
-                .divide(BigDecimal.valueOf(100L));
+        BigDecimal valuePercentage = getValuePercentage(fgtsValue, range);
         BigDecimal withdrawValue = valuePercentage.add(range.getFixedAdditionalAmount());
 
         WithdrawInquiry withdrawInquiry = WithdrawInquiry.builder()
@@ -40,5 +38,12 @@ public class CalculateWithdrawServiceImpl implements CalculateWithdrawService {
         withdrawInquiryService.register(withdrawInquiry);
 
         return withdrawInquiry;
+    }
+
+    private BigDecimal getValuePercentage(BigDecimal fgtsValue, AnniversaryWithdrawalRange range) {
+        final BigDecimal A_HUNDRED_PERCENTE = BigDecimal.valueOf(100);
+        return fgtsValue
+                .multiply(range.getRate())
+                .divide(A_HUNDRED_PERCENTE);
     }
 }

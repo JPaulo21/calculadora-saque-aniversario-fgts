@@ -17,15 +17,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/calculate-withdraw", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@Validated
+@Validated // ← necessário para o Spring aplicar as constraints da interface
 public class CalculateWithdrawController implements CalculateWitdrawDocs {
 
+    private final WithdrawInquiryMapper withdrawInquiryMapper;
     private final CalculateWithdrawService calculateWithdrawService;
 
     @GetMapping
     public ResponseEntity<WithdrawResponseDTO> calculateWithdraw(@RequestParam("value") BigDecimal fgtsValue){
         WithdrawInquiry withdrawInquiry = calculateWithdrawService.calculateWithdraw(fgtsValue);
-        WithdrawResponseDTO withdrawResponseDTO = WithdrawInquiryMapper.INSTANCE.toDTO(withdrawInquiry);
+        WithdrawResponseDTO withdrawResponseDTO = withdrawInquiryMapper.toDTO(withdrawInquiry);
         return ResponseEntity.ok(withdrawResponseDTO);
     }
 }

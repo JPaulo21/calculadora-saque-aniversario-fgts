@@ -47,8 +47,11 @@ jacocoTestCoverageVerification {
 	violationRules {
 		rule {
 			element = 'CLASS'
-			includes = ['com.jp.calculadora_saque_aniversario_fgts.domain.*']
-			excludes = ['com.jp.calculadora_saque_aniversario_fgts.domain.*Repository']
+			includes = ['com.jp.calculadora_saque_aniversario_fgts.*']
+			excludes = ['com.jp.calculadora_saque_aniversario_fgts.*Application',
+						'com.jp.calculadora_saque_aniversario_fgts.infra.*',
+						'com.jp.calculadora_saque_aniversario_fgts.web.exception.*',
+						'com.jp.calculadora_saque_aniversario_fgts.web.dto.*']
 
 			limit {
 				counter = 'LINE'

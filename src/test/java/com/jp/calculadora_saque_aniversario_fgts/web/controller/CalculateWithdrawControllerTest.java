@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 
-import static com.jp.calculadora_saque_aniversario_fgts.common.WithdrawInquiryConstants.withdrawInquiry;
+import static com.jp.calculadora_saque_aniversario_fgts.common.WithdrawInquiryConstants.WITHDRAW_INQUIRY;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -34,8 +34,8 @@ class CalculateWithdrawControllerTest {
     @Test
     void calculateWithdraw_withDataValid_returnsWithdrawResponseDTO() throws Exception {
         when(calculateWithdrawServiceImpl.calculateWithdraw(any(BigDecimal.class)))
-                .thenReturn(withdrawInquiry);
-        when(withdrawInquiryMapper.toDTO(withdrawInquiry))
+                .thenReturn(WITHDRAW_INQUIRY);
+        when(withdrawInquiryMapper.toDTO(WITHDRAW_INQUIRY))
                 .thenReturn(new WithdrawResponseDTO());
 
         mockMvc.perform(get("/calculate-withdraw")

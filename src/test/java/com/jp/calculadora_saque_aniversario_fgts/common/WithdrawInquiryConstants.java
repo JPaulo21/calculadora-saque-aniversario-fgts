@@ -6,16 +6,11 @@ import com.jp.calculadora_saque_aniversario_fgts.domain.withdraw.WithdrawInquiry
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.jp.calculadora_saque_aniversario_fgts.common.AnniversaryWithdrawalRangeConstants.anniversaryWithdrawalRange;
+
 public class WithdrawInquiryConstants {
 
-    public static final AnniversaryWithdrawalRange anniversaryWithdrawalRange = AnniversaryWithdrawalRange.builder()
-            .initialRange(BigDecimal.valueOf(15000.01))
-            .rangeLimit(BigDecimal.valueOf(20000))
-            .fixedAdditionalAmount(BigDecimal.valueOf(1900))
-            .id(1L)
-            .build();
-
-    public static final WithdrawInquiry withdrawInquiry = WithdrawInquiry.builder()
+    public static final WithdrawInquiry WITHDRAW_INQUIRY = WithdrawInquiry.builder()
             .id(1L)
             .fgtsValue(BigDecimal.valueOf(15744.63))
             .anniversaryWithdrawalRange(anniversaryWithdrawalRange)

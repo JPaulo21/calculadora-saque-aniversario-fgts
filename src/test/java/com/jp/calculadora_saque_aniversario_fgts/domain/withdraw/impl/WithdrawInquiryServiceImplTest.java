@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
-import static com.jp.calculadora_saque_aniversario_fgts.common.WithdrawInquiryConstants.withdrawInquiry;
+import static com.jp.calculadora_saque_aniversario_fgts.common.WithdrawInquiryConstants.WITHDRAW_INQUIRY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -35,7 +35,7 @@ public class WithdrawInquiryServiceImplTest {
     @DisplayName("Register Withdraw Inquiry With Valid Data Returns Withdraw Inquiry")
     void registerWithdrawInquiry_WithValidData_ReturnsWithdrawInquiry(){
         when(withdrawInquiryRepository.save(any(WithdrawInquiry.class)))
-                .thenReturn(withdrawInquiry);
+                .thenReturn(WITHDRAW_INQUIRY);
 
         WithdrawInquiry sut = withdrawInquiryService.register(new WithdrawInquiry());
 

@@ -6,9 +6,10 @@ import java.math.BigDecimal;
 
 public class AnniversaryWithdrawalRangeConstants {
     public static final AnniversaryWithdrawalRange anniversaryWithdrawalRange = AnniversaryWithdrawalRange.builder()
+            .id(1L)
             .initialRange(BigDecimal.valueOf(15000.01))
             .rangeLimit(BigDecimal.valueOf(20000))
             .fixedAdditionalAmount(BigDecimal.valueOf(1900))
-            .id(1L)
+            .rate(BigDecimal.TEN)
             .build();
 }
